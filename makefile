@@ -1,9 +1,17 @@
+OS := $(shell uname)
+ifeq ($(OS),Darwin)
+	LFLAGS = -framework GLUT -framework OpenGL
+else
+	LFLAGS = -lglut -lGLU -lGL
+endif
+
+
 ###############################################################
 # UiTest program
 ###############################################################
 
 a.out : uiDraw.o uiInteract.o point.o uiTest.cpp
-	g++ -o a.out uiTest.cpp uiDraw.o uiInteract.o point.o -lglut -lGLU -lGL
+	g++ -o a.out uiTest.cpp uiDraw.o uiInteract.o point.o $(LFLAGS)
 
 ###############################################################
 # Individual files
